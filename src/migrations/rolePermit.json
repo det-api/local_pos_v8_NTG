@@ -1,0 +1,9 @@
+{
+  "roles": [{ "name": "manager" }, { "name": "cashier" }],
+  "permits": [
+    { "name": "add" },
+    { "name": "view" },
+    { "name": "delete" },
+    { "name": "edit" }
+  ]
+}
