@@ -33,23 +33,24 @@ client.on("message", async (topic, message) => {
 
   // console.log(data);
 
-  if (topic == "detpos/local_server/4") {
-  }
+  // if (topic == "detpos/local_server/4") {
+  // }
 
-  if (data[2] == "active") {
-    // blinkLed(Number(data[3]));
-  }
+  // if (data[2] == "active") {
+  //   // blinkLed(Number(data[3]));
+  // }
 
   if (data[2] == "Final") {
-    detailSaleUpdateByDevice(data[3], message.toString());
+    console.log(topic, message);
+    // detailSaleUpdateByDevice(data[3], message.toString());
   }
 
-  if (data[2] == "livedata") {
-    liveDataChangeHandler(message.toString());
-  }
+  //   if (data[2] == "livedata") {
+  //     liveDataChangeHandler(message.toString());
+  //   }
 
-  if (topic == "detpos/local_server/price") {
-  }
+  //   if (topic == "detpos/local_server/price") {
+  //   }
 });
 
 // socket

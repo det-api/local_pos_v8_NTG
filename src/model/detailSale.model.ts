@@ -18,6 +18,7 @@ export interface detailSaleDocument extends mongoose.Document {
   saleLiter: number;
   totalPrice: number;
   totalizer_liter: number;
+  totalizer_amount: number;
   isError: boolean;
   preset: string;
   device: string;

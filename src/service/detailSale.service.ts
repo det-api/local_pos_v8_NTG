@@ -29,6 +29,8 @@ interface Data {
   stationDetailId: string;
   cashType: string;
   couObjId: string;
+  totalizer_liter: number | undefined;
+  totalizer_amount: number | undefined;
   createAt: Date;
   user: UserDocument[];
 }
@@ -69,6 +71,10 @@ export const preSetDetailSale = async (
     dailyReportDate: currentDate,
   });
 
+  const lastDocument = await detailSaleModel
+    .findOne({ nozzleNo: body.nozzleNo })
+    .sort({ _id: -1, createAt: -1 });
+
   body = {
     ...body,
     vocono: `${body.user[0].stationNo}/${
@@ -77,13 +83,15 @@ export const preSetDetailSale = async (
     stationDetailId: body.user[0].stationId,
     casherCode: body.user[0].name,
     asyncAlready: "0",
+    totalizer_liter: lastDocument?.totalizer_liter,
+    totalizer_amount: lastDocument?.totalizer_amount,
     preset: `${preset} ${type}`,
     createAt: iso,
   };
 
-  const lastDocument = await detailSaleModel
-    .findOne({ nozzleNo: body.nozzleNo })
-    .sort({ _id: -1, createAt: -1 });
+  // const lastDocument = await detailSaleModel
+  //   .findOne({ nozzleNo: body.nozzleNo })
+  //   .sort({ _id: -1, createAt: -1 });
 
   // if (
   //   lastDocument?.saleLiter == 0 ||
@@ -189,6 +197,10 @@ export const addDetailSale = async (
       dailyReportDate: currentDate,
     });
 
+    const lastDocument = await detailSaleModel
+      .findOne({ nozzleNo: body.nozzleNo })
+      .sort({ _id: -1, createAt: -1 });
+
     body = {
       ...body,
       vocono: `${body.user[0].stationNo}/${
@@ -197,20 +209,10 @@ export const addDetailSale = async (
       stationDetailId: body.user[0].stationId,
       casherCode: body.user[0].name,
       asyncAlready: "0",
+      totalizer_liter: lastDocument?.totalizer_liter,
+      totalizer_amount: lastDocument?.totalizer_amount,
       createAt: iso,
     };
-
-    const lastDocument = await detailSaleModel
-      .findOne({ nozzleNo: body.nozzleNo })
-      .sort({ _id: -1, createAt: -1 });
-
-    // if (
-    //   lastDocument?.saleLiter == 0 &&
-    //   lastDocument?.asyncAlready == "0"
-    // ) {
-    //   // throw new Error(`${lastDocument?.vocono}`);
-    //   await detailSaleModel.findByIdAndDelete(lastDocument?._id);
-    // }
 
     let result = await new detailSaleModel(body).save();
 
@@ -310,12 +312,8 @@ export const detailSaleUpdateError = async (
     body = {
       ...body,
       asyncAlready: "1",
-      totalizer_liter: lastData[1]
-        ? lastData[1].totalizer_liter + Number(body.saleLiter)
-        : 0 + Number(body.saleLiter),
-      totalizer_amount: lastData[1]
-        ? lastData[1].totalizer_amount + Number(body.totalPrice)
-        : 0 + Number(body.totalPrice),
+      totalizer_liter: lastData[1].totalizer_liter + Number(body.saleLiter),
+      totalizer_amount: lastData[1].totalizer_amount + Number(body.totalPrice),
       isError: true,
     };
 
@@ -371,15 +369,13 @@ export const detailSaleUpdateByDevice = async (topic: string, message) => {
     let updateBody: UpdateQuery<detailSaleDocument> = {
       nozzleNo: data[0],
       salePrice: data[1],
-      saleLiter: saleLiter ? saleLiter : 0,
-      totalPrice: totalPrice ? totalPrice : 0,
+      saleLiter: saleLiter,
+      totalPrice: totalPrice,
       asyncAlready: "1",
-      totalizer_liter: lastData[1]
-        ? lastData[1].totalizer_liter + Number(saleLiter)
-        : 0 + Number(saleLiter),
-      totalizer_amount: lastData[1]
-        ? lastData[1].totalizer_amount + Number(totalPrice)
-        : 0 + Number(totalPrice),
+      totalizer_liter:
+        lastData[1].totalizer_liter + Number(saleLiter ? saleLiter : 0),
+      totalizer_amount:
+        lastData[1].totalizer_amount + Number(totalPrice ? totalPrice : 0),
     };
 
     await detailSaleModel.findByIdAndUpdate(lastData[0]._id, updateBody);
@@ -463,6 +459,7 @@ export const detailSaleUpdateByDevice = async (topic: string, message) => {
       dailyReportDate: prevDate,
     });
     if (checkErrorData.length > 0) {
+      console.log("error 0 in prev date");
       for (const ea of checkErrorData) {
         try {
           let url = config.get<string>("detailsaleCloudUrl");
