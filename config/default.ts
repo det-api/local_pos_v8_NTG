@@ -10,9 +10,9 @@ export default {
 
   mqttUserName: "detpos",
   mqttPassword: "asdffdsa",
-  serverUrl: "https://detfsmm.com",
-  detailsaleCloudUrl: "https://detfsmm.com/api/detail-sale",
-  // coustomerCloudUrl: "http://detfsmm.com:9000/api/customer",
-  coustomerCloudUrl: "https://detfsmm.com/api/customer/local-create",
-  debtCloudUrl: "https://detfsmm.com/api/debt/local-create",
+  // serverUrl: "https://detfsmm.com",
+  // detailsaleCloudUrl: "https://detfsmm.com/api/detail-sale",
+  //coustomerCloudUrl: "http://detfsmm.com:9000/api/customer",
+  // coustomerCloudUrl: "https://detfsmm.com/api/customer/local-create",
+  // debtCloudUrl: "https://detfsmm.com/api/debt/local-create",
 };

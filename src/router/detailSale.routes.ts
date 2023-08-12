@@ -5,6 +5,7 @@ import {
   getDetailSaleByDateHandler,
   getDetailSaleDatePagiHandler,
   getDetailSaleHandler,
+  initialDetailHandler,
   preSetDetailSaleHandler,
   updateDetailSaleHandler,
 } from "../controller/detailSale.controller";
@@ -79,6 +80,13 @@ detailSaleRoute.delete(
   hasAnyPermit(["delete"]),
   validateAll(allSchemaId),
   deleteDetailSaleHandler
+);
+
+detailSaleRoute.post(
+  "/initial",
+  roleValidator(["admin", "installer"]),
+  hasAnyPermit(["add"]),
+  initialDetailHandler
 );
 
 export default detailSaleRoute;

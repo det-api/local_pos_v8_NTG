@@ -10,6 +10,7 @@ import {
   detailSaleByDateAndPagi,
   detailSaleUpdateError,
   preSetDetailSale,
+  initialDetail,
   // detailSaleByDate,
 } from "../service/detailSale.service";
 import {
@@ -236,4 +237,14 @@ export const getDetailSaleDatePagiHandler = async (
   } catch (e) {
     next(new Error(e));
   }
+};
+
+export const initialDetailHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  console.log("wk");
+  let result = await initialDetail(req.body);
+  fMsg(res, "added", result);
 };

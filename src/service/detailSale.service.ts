@@ -339,8 +339,8 @@ export const detailSaleUpdateByDevice = async (topic: string, message) => {
     let data: any[] = message.split(regex);
     // console.log("wk");
     // let [saleLiter, totalPrice] = deviceLiveData.get(data[0]);
-    let saleLiter = deviceLiveData.get(data[0])?.[0] ?? null;
-    let totalPrice = deviceLiveData.get(data[0])?.[1] ?? null;
+    let saleLiter = deviceLiveData.get(data[0])?.[0];
+    let totalPrice = deviceLiveData.get(data[0])?.[1];
 
     let query = {
       nozzleNo: data[0],
@@ -609,4 +609,8 @@ export const detailSaleByDateAndPagi = async (
     console.error("Error in detailSaleByDateAndPagi:", error);
     throw error;
   }
+};
+
+export const initialDetail = async (body) => {
+  return await new detailSaleModel(body).save();
 };
