@@ -31,23 +31,23 @@ client.on("connect", connect);
 client.on("message", async (topic, message) => {
   let data = topic.split("/");
 
-  // console.log(data);
+  console.log(data);
 
   // if (topic == "detpos/local_server/4") {
   // }
 
-  // if (data[2] == "active") {
-  //   // blinkLed(Number(data[3]));
-  // }
-
-  if (data[2] == "Final") {
-    console.log(topic, message);
-    // detailSaleUpdateByDevice(data[3], message.toString());
+  if (data[2] == "active") {
+    blinkLed(Number(data[3]));
   }
 
-  //   if (data[2] == "livedata") {
-  //     liveDataChangeHandler(message.toString());
-  //   }
+  if (data[2] == "Final") {
+    // console.log(topic, message);
+    detailSaleUpdateByDevice(data[3], message.toString());
+  }
+
+    if (data[2] == "livedata") {
+      liveDataChangeHandler(message.toString());
+    }
 
   //   if (topic == "detpos/local_server/price") {
   //   }
@@ -113,7 +113,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 const defaultData = async () => {
-  // lowLed();
+   lowLed();
 
   await rp();
 };

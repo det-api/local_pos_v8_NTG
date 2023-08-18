@@ -1,11 +1,11 @@
 export default {
   port: 9000,
   host: "localhost",
-  dbUrl: "mongodb://lmo:asdffdsa@localhost:27017/local-pos?authSource=admin",
+  dbUrl: "mongodb://detpos:asdffdsa@127.0.0.1:27017/local-pos?authSource=admin",
   saltWorkFactor: 10,
   secretKey: "suuhh",
   page_limit: 50,
-  mqttUrl: "ws://192.168.0.100:9002",
+  mqttUrl: "ws://192.168.0.100:9001",
   // mqttUrl: "ws://127.0.0.1:1883",
 
   mqttUserName: "detpos",

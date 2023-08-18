@@ -19,7 +19,7 @@ const fuelBalanceRoute = require("express").Router();
 fuelBalanceRoute.get(
   "/all",
   validateToken2,
-  roleValidator(["admin", "installer"]),
+  roleValidator(["admin", "installer", "manager"]),
   getAllFuelBalanceHandler
 );
 

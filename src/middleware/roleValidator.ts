@@ -7,6 +7,7 @@ export const roleValidator =
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       let bol: boolean = false;
+      console.log(req.body);
 
       for (let i = 0; i < role.length; i++) {
         let foundRole = await req.body.user[0].roles?.find(
@@ -18,7 +19,6 @@ export const roleValidator =
         }
       }
       if (!bol) return next(new Error("You dont have enough role"));
-
       next();
     } catch (e) {
       next(new Error(e));

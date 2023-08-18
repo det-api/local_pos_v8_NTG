@@ -13,7 +13,11 @@ import { managerValidator } from "../middleware/managerValidator";
 
 import { hasAnyPermit } from "../middleware/permitValidator";
 import { roleValidator } from "../middleware/roleValidator";
-import { validateAll, validateToken } from "../middleware/validator";
+import {
+  validateAll,
+  validateToken,
+  validateToken2,
+} from "../middleware/validator";
 import {
   allSchemaId,
   detailSaleErrorUpdateSchema,
@@ -25,7 +29,7 @@ const detailSaleRoute = require("express").Router();
 
 detailSaleRoute.get(
   "/pagi/:page",
-  validateToken,
+  validateToken2,
   hasAnyPermit(["view"]),
   getDetailSaleHandler
 );
@@ -76,7 +80,7 @@ detailSaleRoute.patch(
 detailSaleRoute.delete(
   "/",
   validateToken,
-  roleValidator(["admin"]),
+  roleValidator(["admin", "installer"]),
   hasAnyPermit(["delete"]),
   validateAll(allSchemaId),
   deleteDetailSaleHandler
@@ -84,6 +88,7 @@ detailSaleRoute.delete(
 
 detailSaleRoute.post(
   "/initial",
+  validateToken2,
   roleValidator(["admin", "installer"]),
   hasAnyPermit(["add"]),
   initialDetailHandler

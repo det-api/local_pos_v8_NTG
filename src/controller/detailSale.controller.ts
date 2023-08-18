@@ -244,7 +244,11 @@ export const initialDetailHandler = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("wk");
-  let result = await initialDetail(req.body);
-  fMsg(res, "added", result);
+  try {
+    console.log("wk");
+    let result = await initialDetail(req.body);
+    fMsg(res, "added", result);
+  } catch (e) {
+    next(new Error(e));
+  }
 };
