@@ -79,9 +79,9 @@ detailSaleRoute.patch(
 
 detailSaleRoute.delete(
   "/",
-  validateToken,
+  validateToken2,
   roleValidator(["admin", "installer"]),
-  hasAnyPermit(["delete"]),
+  // hasAnyPermit(["delete"]),
   validateAll(allSchemaId),
   deleteDetailSaleHandler
 );

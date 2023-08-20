@@ -1,7 +1,7 @@
 export default {
   port: 9000,
   host: "localhost",
-  dbUrl: "mongodb://detpos:asdffdsa@127.0.0.1:27017/local-pos?authSource=admin",
+  dbUrl: "mongodb://lmo:asdffdsa@127.0.0.1:27017/local-pos?authSource=admin",
   saltWorkFactor: 10,
   secretKey: "suuhh",
   page_limit: 50,

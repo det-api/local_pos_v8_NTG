@@ -58,7 +58,7 @@ fuelBalanceRoute.delete(
   "/",
   validateToken2,
   roleValidator(["admin", "installer"]),
-  hasAnyPermit(["delete"]),
+  // hasAnyPermit(["delete"]),
   deleteFuelBalanceHandler
 );
 

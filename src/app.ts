@@ -37,11 +37,11 @@ client.on("message", async (topic, message) => {
   // }
 
   if (data[2] == "active") {
-    blinkLed(Number(data[3]));
+    //d blinkLed(Number(data[3]));
   }
 
   if (data[2] == "Final") {
-    // console.log(topic, message);
+    console.log(topic, message);
     detailSaleUpdateByDevice(data[3], message.toString());
   }
 
@@ -113,7 +113,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 const defaultData = async () => {
-   lowLed();
+  // lowLed();
 
   await rp();
 };

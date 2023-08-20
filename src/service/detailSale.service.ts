@@ -612,5 +612,12 @@ export const detailSaleByDateAndPagi = async (
 };
 
 export const initialDetail = async (body) => {
-  return await new detailSaleModel(body).save();
+  try{
+    body.vocono = Date.now()
+    console.log(body)
+    return await new detailSaleModel(body).save();
+
+  }catch(e) {
+    throw e;
+  }
 };
