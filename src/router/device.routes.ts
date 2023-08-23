@@ -9,7 +9,7 @@ import { validateToken, validateToken2 } from "../middleware/validator";
 
 const deviceRoute = require("express").Router();
 
-deviceRoute.get("/", validateToken, getDeviceHandler);
+deviceRoute.get("/", getDeviceHandler);
 deviceRoute.post(
   "/",
   validateToken2,
